@@ -12,7 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-r"""Tool to convert a JAX function to an HLO proto.
+r"""
+This file is a copy of jax/blob/master/jax/tools/jax_to_hlo.py
+with a modified return statement in the jax_to_hlo() function.
+
+Tool to convert a JAX function to an HLO proto.
 
 This script is meant to be used as part of a genrule that converts a JAX program
 into an HLO proto.  The HLO proto represents an XLA program, and can be run from
