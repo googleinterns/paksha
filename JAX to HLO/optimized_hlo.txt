@@ -1,66 +1,31 @@
-HloModule xla_computation_ordered_wrapper.39
+HloModule xla_computation_dlfn.33
 
-%primitive_computation_add.19 (parameter.20: f32[], parameter.21: f32[]) -> f32[] {
-  %parameter.20 = f32[] parameter(0), metadata={op_type="add" op_name="add"}
-  %parameter.21 = f32[] parameter(1), metadata={op_type="add" op_name="add"}
-  ROOT %add.22 = f32[] add(f32[] %parameter.20, f32[] %parameter.21), metadata={op_type="add" op_name="add"}
+%fused_computation (param_0.2: f32[]) -> f32[] {
+  %param_0.2 = f32[] parameter(0), metadata={op_name="DUMMY_110"}
+  %constant.1 = f32[] constant(-2), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  %multiply.9 = f32[] multiply(f32[] %param_0.2, f32[] %constant.1), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  %exponential.0 = f32[] exponential(f32[] %multiply.9), metadata={op_type="exp" op_name="xla_computation(dlfn)/exp" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  %constant.0 = f32[] constant(1), metadata={op_type="sub" op_name="xla_computation(dlfn)/sub" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %add.2 = f32[] add(f32[] %exponential.0, f32[] %constant.0), metadata={op_type="add" op_name="xla_computation(dlfn)/add" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %subtract.0 = f32[] subtract(f32[] %constant.0, f32[] %exponential.0), metadata={op_type="sub" op_name="xla_computation(dlfn)/sub" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %divide.5 = f32[] divide(f32[] %add.2, f32[] %subtract.0), metadata={op_type="div" op_name="xla_computation(dlfn)/div" source_file="jax_to_optimized_hlo_example.py" source_line=16}
+  %multiply.8 = f32[] multiply(f32[] %add.2, f32[] %add.2), metadata={op_type="integer_pow" op_name="xla_computation(dlfn)/integer_pow[ y=-2 ]" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %divide.4 = f32[] divide(f32[] %constant.0, f32[] %multiply.8), metadata={op_type="integer_pow" op_name="xla_computation(dlfn)/integer_pow[ y=-2 ]" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %multiply.7 = f32[] multiply(f32[] %divide.5, f32[] %divide.4), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %multiply.6 = f32[] multiply(f32[] %multiply.7, f32[] %subtract.0), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %negate.1 = f32[] negate(f32[] %multiply.6), metadata={op_type="neg" op_name="xla_computation(dlfn)/neg" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %divide.3 = f32[] divide(f32[] %subtract.0, f32[] %add.2), metadata={op_type="div" op_name="xla_computation(dlfn)/div" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %multiply.5 = f32[] multiply(f32[] %divide.3, f32[] %add.2), metadata={op_name="DUMMY_31"}
+  %divide.2 = f32[] divide(f32[] %constant.0, f32[] %multiply.5), metadata={op_type="div" op_name="xla_computation(dlfn)/div" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %negate.0 = f32[] negate(f32[] %divide.2), metadata={op_type="neg" op_name="xla_computation(dlfn)/neg" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %add.1 = f32[] add(f32[] %negate.1, f32[] %negate.0), metadata={op_type="add_any" op_name="xla_computation(dlfn)/add_any" source_file="jax_to_optimized_hlo_example.py" source_line=19}
+  %multiply.3 = f32[] multiply(f32[] %add.1, f32[] %exponential.0), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  ROOT %multiply.2 = f32[] multiply(f32[] %multiply.3, f32[] %constant.1), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
 }
 
-%fused_computation (param_0.2: f32[100], param_1.4: f32[]) -> f32[100] {
-  %param_1.4 = f32[] parameter(1), metadata={op_name="DUMMY_65"}
-  %broadcast.0 = f32[100]{0} broadcast(f32[] %param_1.4), dimensions={}, metadata={op_type="broadcast_in_dim" op_name="xla_computation(ordered_wrapper)/broadcast_in_dim[ broadcast_dimensions=(  )\n                                                   shape=(100,) ]" source_file="jax2opthlo.py" source_line=17}
-  %constant.1 = f32[] constant(1), metadata={op_type="sub" op_name="xla_computation(ordered_wrapper)/sub" source_file="jax2opthlo.py" source_line=14}
-  %broadcast.2 = f32[100]{0} broadcast(f32[] %constant.1), dimensions={}, metadata={op_type="sub" op_name="xla_computation(ordered_wrapper)/sub" source_file="jax2opthlo.py" source_line=14}
-  %param_0.2 = f32[100]{0} parameter(0), metadata={op_name="DUMMY_65"}
-  %add.1 = f32[100]{0} add(f32[100]{0} %param_0.2, f32[100]{0} %broadcast.2), metadata={op_type="add" op_name="xla_computation(ordered_wrapper)/add" source_file="jax2opthlo.py" source_line=14}
-  %multiply.4 = f32[100]{0} multiply(f32[100]{0} %add.1, f32[100]{0} %add.1), metadata={op_type="integer_pow" op_name="xla_computation(ordered_wrapper)/integer_pow[ y=-2 ]" source_file="jax2opthlo.py" source_line=14}
-  %divide.1 = f32[100]{0} divide(f32[100]{0} %broadcast.2, f32[100]{0} %multiply.4), metadata={op_type="integer_pow" op_name="xla_computation(ordered_wrapper)/integer_pow[ y=-2 ]" source_file="jax2opthlo.py" source_line=14}
-  %multiply.3 = f32[100]{0} multiply(f32[100]{0} %broadcast.0, f32[100]{0} %divide.1), metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=14}
-  %subtract.0 = f32[100]{0} subtract(f32[100]{0} %broadcast.2, f32[100]{0} %param_0.2), metadata={op_type="sub" op_name="xla_computation(ordered_wrapper)/sub" source_file="jax2opthlo.py" source_line=14}
-  %multiply.2 = f32[100]{0} multiply(f32[100]{0} %multiply.3, f32[100]{0} %subtract.0), metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=14}
-  %negate.1 = f32[100]{0} negate(f32[100]{0} %multiply.2), metadata={op_type="neg" op_name="xla_computation(ordered_wrapper)/neg" source_file="jax2opthlo.py" source_line=14}
-  %divide.0 = f32[100]{0} divide(f32[100]{0} %broadcast.0, f32[100]{0} %add.1), metadata={op_type="div" op_name="xla_computation(ordered_wrapper)/div" source_file="jax2opthlo.py" source_line=14}
-  %negate.0 = f32[100]{0} negate(f32[100]{0} %divide.0), metadata={op_type="neg" op_name="xla_computation(ordered_wrapper)/neg" source_file="jax2opthlo.py" source_line=14}
-  %add.0 = f32[100]{0} add(f32[100]{0} %negate.1, f32[100]{0} %negate.0), metadata={op_type="add_any" op_name="xla_computation(ordered_wrapper)/add_any" source_file="jax2opthlo.py" source_line=20}
-  %multiply.1 = f32[100]{0} multiply(f32[100]{0} %add.0, f32[100]{0} %param_0.2), metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-  %constant.0 = f32[] constant(-2), metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-  %broadcast.1 = f32[100]{0} broadcast(f32[] %constant.0), dimensions={}, metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-  ROOT %multiply.0 = f32[100]{0} multiply(f32[100]{0} %multiply.1, f32[100]{0} %broadcast.1), metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-}
-
-%fused_computation.1 (param_0.4: f32[4]) -> f32[] {
-  %constant.5 = f32[] constant(1), metadata={op_type="sub" op_name="xla_computation(ordered_wrapper)/sub" source_file="jax2opthlo.py" source_line=14}
-  %param_0.4 = f32[4]{0} parameter(0), metadata={op_name="DUMMY_65"}
-  %constant.4 = f32[] constant(0), metadata={op_type="reduce_sum" op_name="xla_computation(ordered_wrapper)/reduce_sum[ axes=(0,) ]" source_file="jax2opthlo.py" source_line=17}
-  %reduce.1 = f32[] reduce(f32[4]{0} %param_0.4, f32[] %constant.4), dimensions={0}, to_apply=%primitive_computation_add.19, metadata={op_type="reduce_sum" op_name="xla_computation(ordered_wrapper)/reduce_sum[ axes=(0,) ]" source_file="jax2opthlo.py" source_line=17}
-  ROOT %divide.2 = f32[] divide(f32[] %constant.5, f32[] %reduce.1), metadata={op_type="div" op_name="xla_computation(ordered_wrapper)/div" source_file="jax2opthlo.py" source_line=17}
-}
-
-%fused_computation.2 (param_0.6: f32[100]) -> f32[100] {
-  %constant.6 = f32[] constant(1), metadata={op_type="sub" op_name="xla_computation(ordered_wrapper)/sub" source_file="jax2opthlo.py" source_line=14}
-  %broadcast.3 = f32[100]{0} broadcast(f32[] %constant.6), dimensions={}, metadata={op_type="sub" op_name="xla_computation(ordered_wrapper)/sub" source_file="jax2opthlo.py" source_line=14}
-  %param_0.6 = f32[100]{0} parameter(0), metadata={op_name="DUMMY_65"}
-  %subtract.1 = f32[100]{0} subtract(f32[100]{0} %broadcast.3, f32[100]{0} %param_0.6), metadata={op_type="sub" op_name="xla_computation(ordered_wrapper)/sub" source_file="jax2opthlo.py" source_line=14}
-  %add.2 = f32[100]{0} add(f32[100]{0} %param_0.6, f32[100]{0} %broadcast.3), metadata={op_type="add" op_name="xla_computation(ordered_wrapper)/add" source_file="jax2opthlo.py" source_line=14}
-  ROOT %divide.3 = f32[100]{0} divide(f32[100]{0} %subtract.1, f32[100]{0} %add.2), metadata={op_type="div" op_name="xla_computation(ordered_wrapper)/div" source_file="jax2opthlo.py" source_line=14}
-}
-
-%fused_computation.3 (param_0.8: f32[100]) -> f32[100] {
-  %param_0.8 = f32[100]{0} parameter(0), metadata={op_name="DUMMY_65"}
-  %constant.8 = f32[] constant(-2), metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-  %broadcast.5 = f32[100]{0} broadcast(f32[] %constant.8), dimensions={}, metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-  %multiply.6 = f32[100]{0} multiply(f32[100]{0} %param_0.8, f32[100]{0} %broadcast.5), metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-  ROOT %exponential.0 = f32[100]{0} exponential(f32[100]{0} %multiply.6), metadata={op_type="exp" op_name="xla_computation(ordered_wrapper)/exp" source_file="jax2opthlo.py" source_line=13}
-}
-
-ENTRY %xla_computation_ordered_wrapper.39 (parameter.1: f32[100]) -> (f32[100]) {
-  %parameter.1 = f32[100]{0} parameter(0), metadata={op_name="DUMMY_1"}
-  %fusion.3 = f32[100]{0} fusion(f32[100]{0} %parameter.1), kind=kLoop, calls=%fused_computation.3, metadata={op_type="exp" op_name="xla_computation(ordered_wrapper)/exp" source_file="jax2opthlo.py" source_line=13}
-  %fusion.2 = f32[100]{0} fusion(f32[100]{0} %fusion.3), kind=kLoop, calls=%fused_computation.2, metadata={op_type="div" op_name="xla_computation(ordered_wrapper)/div" source_file="jax2opthlo.py" source_line=14}
-  %constant.18 = f32[] constant(0), metadata={op_type="reduce_sum" op_name="xla_computation(ordered_wrapper)/reduce_sum[ axes=(0,) ]" source_file="jax2opthlo.py" source_line=17}
-  %reduce-window = f32[4]{0} reduce-window(f32[100]{0} %fusion.2, f32[] %constant.18), window={size=32 stride=32 pad=14_14}, to_apply=%primitive_computation_add.19, metadata={op_name="DUMMY_30"}
-  %fusion.1 = f32[] fusion(f32[4]{0} %reduce-window), kind=kLoop, calls=%fused_computation.1, metadata={op_type="div" op_name="xla_computation(ordered_wrapper)/div" source_file="jax2opthlo.py" source_line=17}
-  %fusion = f32[100]{0} fusion(f32[100]{0} %fusion.3, f32[] %fusion.1), kind=kLoop, calls=%fused_computation, metadata={op_type="mul" op_name="xla_computation(ordered_wrapper)/mul" source_file="jax2opthlo.py" source_line=13}
-  ROOT %tuple.38 = (f32[100]{0}) tuple(f32[100]{0} %fusion), metadata={op_name="DUMMY_1"}
+ENTRY %xla_computation_dlfn.33 (parameter.1: f32[]) -> (f32[]) {
+  %parameter.1 = f32[] parameter(0), metadata={op_name="DUMMY_1"}
+  %fusion = f32[] fusion(f32[] %parameter.1), kind=kLoop, calls=%fused_computation, metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  ROOT %tuple.32 = (f32[]) tuple(f32[] %fusion), metadata={op_name="DUMMY_1"}
 }
 

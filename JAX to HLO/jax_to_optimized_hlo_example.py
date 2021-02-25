@@ -1,6 +1,5 @@
-from jax import numpy, grad
+from jax import numpy, grad, xla_computation
 from jax.lib import xla_client
-from jax_to_hlo import jax_to_hlo
 
 '''
 This file is an example of how to get optimized HLO from a JAX program.
@@ -22,8 +21,8 @@ def dlfn(x):
 xla_extension = xla_client._xla
 xla_cpu_client = xla_client.get_local_backend("cpu")
 
-xla_computation_hlo = jax_to_hlo(dlfn,[ ("x" , xla_client.Shape("f32[100]")) ])
-compiled_hlo = xla_cpu_client.compile(xla_computation_hlo, xla_extension.CompileOptions())
+comp = xla_computation(dlfn)(1.)
+compiled_hlo = xla_cpu_client.compile(comp, xla_extension.CompileOptions())
 module_compiled, = compiled_hlo.hlo_modules()
 
 with open("optimized_hlo.txt", "w") as f:
