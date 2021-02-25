@@ -1,0 +1,31 @@
+HloModule xla_computation_dlfn.33
+
+%fused_computation (param_0.2: f32[]) -> f32[] {
+  %param_0.2 = f32[] parameter(0), metadata={op_name="DUMMY_110"}
+  %constant.1 = f32[] constant(-2), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  %multiply.9 = f32[] multiply(f32[] %param_0.2, f32[] %constant.1), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  %exponential.0 = f32[] exponential(f32[] %multiply.9), metadata={op_type="exp" op_name="xla_computation(dlfn)/exp" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  %constant.0 = f32[] constant(1), metadata={op_type="sub" op_name="xla_computation(dlfn)/sub" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %add.2 = f32[] add(f32[] %exponential.0, f32[] %constant.0), metadata={op_type="add" op_name="xla_computation(dlfn)/add" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %subtract.0 = f32[] subtract(f32[] %constant.0, f32[] %exponential.0), metadata={op_type="sub" op_name="xla_computation(dlfn)/sub" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %divide.5 = f32[] divide(f32[] %add.2, f32[] %subtract.0), metadata={op_type="div" op_name="xla_computation(dlfn)/div" source_file="jax_to_optimized_hlo_example.py" source_line=16}
+  %multiply.8 = f32[] multiply(f32[] %add.2, f32[] %add.2), metadata={op_type="integer_pow" op_name="xla_computation(dlfn)/integer_pow[ y=-2 ]" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %divide.4 = f32[] divide(f32[] %constant.0, f32[] %multiply.8), metadata={op_type="integer_pow" op_name="xla_computation(dlfn)/integer_pow[ y=-2 ]" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %multiply.7 = f32[] multiply(f32[] %divide.5, f32[] %divide.4), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %multiply.6 = f32[] multiply(f32[] %multiply.7, f32[] %subtract.0), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %negate.1 = f32[] negate(f32[] %multiply.6), metadata={op_type="neg" op_name="xla_computation(dlfn)/neg" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %divide.3 = f32[] divide(f32[] %subtract.0, f32[] %add.2), metadata={op_type="div" op_name="xla_computation(dlfn)/div" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %multiply.5 = f32[] multiply(f32[] %divide.3, f32[] %add.2), metadata={op_name="DUMMY_31"}
+  %divide.2 = f32[] divide(f32[] %constant.0, f32[] %multiply.5), metadata={op_type="div" op_name="xla_computation(dlfn)/div" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %negate.0 = f32[] negate(f32[] %divide.2), metadata={op_type="neg" op_name="xla_computation(dlfn)/neg" source_file="jax_to_optimized_hlo_example.py" source_line=13}
+  %add.1 = f32[] add(f32[] %negate.1, f32[] %negate.0), metadata={op_type="add_any" op_name="xla_computation(dlfn)/add_any" source_file="jax_to_optimized_hlo_example.py" source_line=19}
+  %multiply.3 = f32[] multiply(f32[] %add.1, f32[] %exponential.0), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  ROOT %multiply.2 = f32[] multiply(f32[] %multiply.3, f32[] %constant.1), metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+}
+
+ENTRY %xla_computation_dlfn.33 (parameter.1: f32[]) -> (f32[]) {
+  %parameter.1 = f32[] parameter(0), metadata={op_name="DUMMY_1"}
+  %fusion = f32[] fusion(f32[] %parameter.1), kind=kLoop, calls=%fused_computation, metadata={op_type="mul" op_name="xla_computation(dlfn)/mul" source_file="jax_to_optimized_hlo_example.py" source_line=12}
+  ROOT %tuple.32 = (f32[]) tuple(f32[] %fusion), metadata={op_name="DUMMY_1"}
+}
+
