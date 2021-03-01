@@ -12,13 +12,12 @@ This program was created by using the following as a guide:
 https://github.com/google/jax/blob/master/docs/notebooks/Neural_Network_and_Data_Loading.ipynb
 '''
 
-# A helper function to randomly initialize weights and biases
-# for a dense neural network layer
+# Randomly initializes weights and biases for a dense layer
 def random_layer_params(m, n, key, scale=1e-2):
   w_key, b_key = random.split(key)
   return scale * random.normal(w_key, (n, m)), scale * random.normal(b_key, (n,))
 
-# Initialize all layers for a fully-connected neural network with sizes "sizes"
+# Initialize all layers for fully-connected NN with sizes "sizes"
 def init_network_params(sizes, key):
   keys = random.split(key, len(sizes))
   return [random_layer_params(m, n, k) for m, n, k in zip(sizes[:-1], sizes[1:], keys)]
@@ -48,12 +47,9 @@ preds = predict(params, random_flattened_image)
 
 random_flattened_images = random.normal(random.PRNGKey(1), (10, 28 * 28))
 
-# Upgrade it to handle batches using `vmap`
-
-# Batched version of the `predict` function
+# Upgrade it to handle batches using `vmap`, and get batched version of `predict` function
 batched_predict = vmap(predict, in_axes=(None, 0))
 
-# `batched_predict` has the same call signature as `predict`
 batched_preds = batched_predict(params, random_flattened_images)
 
 def one_hot(x, k, dtype=jnp.float32):
@@ -72,8 +68,7 @@ def loss(params, images, targets):
 @jit
 def update(params, x, y):
   grads = grad(loss)(params, x, y)
-  return [(w - step_size * dw, b - step_size * db)
-          for (w, b), (dw, db) in zip(params, grads)]
+  return [(w - step_size * dw, b - step_size * db) for (w, b), (dw, db) in zip(params, grads)]
 
 def numpy_collate(batch):
   if isinstance(batch[0], np.ndarray):
