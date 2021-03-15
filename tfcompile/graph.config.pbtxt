@@ -1,0 +1,31 @@
+feed {
+  id {
+    node_name: "jax2tf_arg_0"
+  }
+  shape {
+    dim {
+      size: 1
+    }
+    dim {
+      size: 1
+    }
+  }
+}
+feed {
+  id {
+    node_name: "jax2tf_arg_1"
+  }
+  shape {
+    dim {
+      size: 1
+    }
+    dim {
+      size: 1
+    }
+  }
+}
+fetch {
+  id {
+    node_name: "jax2tf_out"
+  }
+}
