@@ -29,9 +29,9 @@ for idx, x in enumerate(cf.inputs):
 	feed.id.node_name = feeds[idx]
 	feed.shape.MergeFrom(x.shape.as_proto())
 
-for i in range(len(cf.outputs)):
+for f in fetches:
 	fetch = config.fetch.add()
-	fetch.id.node_name = fetches[i]
+	fetch.id.node_name = f
 
 with open('graph.config.pbtxt', 'w') as f:
 	f.write(str(config))
