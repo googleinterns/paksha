@@ -1,5 +1,5 @@
 # jax2tf
-- [jax2tf_tfcompile.py](jax2tf_tfcompile.py) is an example of how to convert JAX to Tensorflow, and then get the input files for tfcompile ([graph.pb](graph.pb) and [graph.config.pbtext](graph.config.pbtext)).
+- [jax2tf_tfcompile.py](jax2tf_tfcompile.py) is an example of how to convert JAX to Tensorflow, and then get the input files for tfcompile ([graph.pb](graph.pb) and [graph.config.pbtxt](graph.config.pbtxt)).
 - [tf2xla_pb2.py](tf2xla_pb2.py) is generated and obtained using the following commands from the tensorflow directory:
     ```bash
     protoc tensorflow/compiler/tf2xla/tf2xla.proto --python_out=. && cp tensorflow/compiler/tf2xla/tf2xla_pb2.py path/to/
