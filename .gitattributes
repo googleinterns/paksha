@@ -1,2 +1,2 @@
-*.js linguist-vendored
-*.html linguist-vendored
+addition_wasm/browser/*.js linguist-vendored
+addition_wasm/browser/*.html linguist-vendored
