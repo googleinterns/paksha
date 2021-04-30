@@ -1,2 +1,3 @@
 addition_wasm/browser/addition.js linguist-vendored
 addition_wasm/browser/addition.html linguist-vendored
+*.wasm linguist-language=WebAssembly
